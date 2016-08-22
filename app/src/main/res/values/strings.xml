@@ -4,5 +4,121 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!--Side Navigation MenuItems -->
+
+    <string name="navigation_profile">Profile</string>
+    <string name="navigation_group">Group</string>
+    <string name="navigation_financial">Financial</string>
+    <string name="navigation_resources">Resources</string>
+    <string name="navigation_settings">Settings</string>
+    <string name="navigation_help">Help</string>
+
+    <!--Activity Titles-->
+
+    <string name="activity_profile">Profile</string>
+    <string name="activity_group">My Group</string>
+    <string name="activity_meeting">Meeting</string>
+    <string name="activiy_financial">Financial</string>
+    <string name="activity_resources">Resources</string>
+    <string name="activity_help">Help</string>
+
+    <!--Fragment Names-->
+    <string name="fragment_group_info">Details</string>
+    <string name="fragment_group_meetings">Meetings</string>
+    <string name="fragment_group_finance">Finance</string>
+
+    <string name="fragment_financial_budget">Budget</string>
+    <string name="fragment_financial_loan">Loan</string>
+    <string name="fragment_financial_goals">Goals</string>
+
+    <string name="fragment_my_details">My Info</string>
+    <string name="fragment_my_dreams">My Dreams</string>
+
+    <string name="fragment_resources_skills">Skills</string>
+    <string name="fragment_resources_education">Education</string>
+
+
+    <!--Menu Items   -->
     <string name="action_settings">Settings</string>
+
+
+    <!--Input Text Field Hints-->
+
+    <string name="input_principal">Principal Amount</string>
+    <string name="input_interest_rate">Interest Rate (Monthly)</string>
+    <string name="input_loan_duration">Loan Duration (In Months)</string>
+
+    <!--Button Labels-->
+
+    <string name="btn_calculate_emi">Calculate</string>
+    <string name="btn_reset">Reset</string>
+
+    <!--Text Labels-->
+
+    <string name="label_installment">Installment</string>
+    <string name="label_interest">Total Interest</string>
+    <string name="label_total_payment">Interest + Principal Amount</string>
+    <string name="label_group_formation_date">Formation Date</string>
+    <string name="label_aim">Aim</string>
+    <string name="label_members">Members</string>
+
+    <string name="label_group_funds">Fund</string>
+    <string name="label_bank_deposit">Deposit</string>
+
+    <string name="label_remaining_loan">Loan Remaining</string>
+    <string name="label_given_loan">Loan Given</string>
+    <string name="label_repaid_loan">Loan Repaid</string>
+    <string name="label_taken_loan">Taken Loan</string>
+
+    <string name="label_meeting_time">Time</string>
+    <string name="label_meeting_location">Location</string>
+    <string name="label_meeting_president">President</string>
+    <string name="label_attendance">Attendance</string>
+
+    <string name="label_member_age">Age</string>
+    <string name="label_member_address">Address</string>
+    <string name="label_member_education">Education</string>
+    <string name="label_member_husband">Husband</string>
+    <string name="label_member_children">Children</string>
+    <string name="child_boy">Boy</string>
+    <string name="child_girl">Girl</string>
+    <string name="children_boy">Boys</string>
+    <string name="children_girl">Girls</string>
+    <string name="label_voter_id">Voter ID</string>
+    <string name="label_aadhar">AADHAR </string>
+    <string name="label_ration">Ration Card </string>
+    <string name="label_family_income">Annual Income</string>
+
+    <!--Card Headers-->
+    <string name="header_financial_status">Financial Status</string>
+    <string name="header_bank_account">Bank Account</string>
+    <string name="header_meeting_points">Discussion Topics</string>
+    <string name="header_member_family">Family</string>
+    <string name="header_expense">Expense</string>
+    <string name="header_income">Income</string>
+
+
+    <!--Toast Messages-->
+
+    <string name="message_invalid_input">Please fill all fields with valid values</string>
+    <string name="message_failed_to_load_data">Failed to load data from server</string>
+
+
+    <!--Content Descriptions-->
+
+    <string name="desc_video_thumbnail">Video Image</string>
+
+
+    <!--Dummy Strings-->
+
+    <string name="dummy_points">
+        \n &#8226; Point 1 \n
+        &#8226; Point 2 \n
+        &#8226; Point 3 \n
+        &#8226; Point 4 \n
+        &#8226; Point 5 \n
+
+    </string>
+
+
 </resources>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "133568078832",
+    "firebase_url": "https://epragati-63b2d.firebaseio.com",
+    "project_id": "epragati-63b2d",
+    "storage_bucket": "epragati-63b2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:133568078832:android:832fd603fa40e6d8",
+        "android_client_info": {
+          "package_name": "io.github.vipinagrahari.epragati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "133568078832-gaftb3suo3v1kp38k5gbl7elvqde50ir.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_DFA-hM5TO57zTS_mk-Ng0EZlFRB83WE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

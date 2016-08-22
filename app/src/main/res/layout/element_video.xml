@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
+
+    <ImageView
+        android:id="@+id/img_video"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/video_thumbnail_height"
+        android:contentDescription="@string/desc_video_thumbnail"
+        android:scaleType="fitXY"
+        tools:src="@drawable/video_placeholder" />
+
+    <TextView
+        android:id="@+id/tv_video_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_top_margin"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:textStyle="bold"
+        tools:text="Lorem Ipsum Video Title" />
+
+
+</LinearLayout>
