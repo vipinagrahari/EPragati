@@ -5,6 +5,7 @@ package io.github.vipinagrahari.epragati.ui.adapter;
  */
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import io.github.vipinagrahari.epragati.data.model.Transaction;
+import io.github.vipinagrahari.epragati.data.db.DbContract;
 
 
 /**
@@ -23,11 +22,11 @@ import io.github.vipinagrahari.epragati.data.model.Transaction;
  */
 public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.TransactionView> {
 
-    List<Transaction> transactions;
+    Cursor cursor;
     Context context;
 
-    public TransactionAdapter(List<Transaction> transactions) {
-        this.transactions = transactions;
+    public TransactionAdapter(Cursor cursor) {
+        this.cursor = cursor;
     }
 
 
@@ -39,16 +38,29 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     @Override
     public void onBindViewHolder(TransactionView holder, int position) {
-        Transaction transaction = transactions.get(position);
-        holder.transactionDetail.setText(transaction.getDescription() + "\n" + transaction.getAmount() + "Rs");
+        cursor.moveToPosition(position);
+        String description = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_DESCRIPTION));
+        String amount = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT));
+        holder.transactionDetail.setText(description + "\n" + amount + "Rs");
 
+    }
+
+    public Cursor swapCursor(Cursor cursor) {
+        if (this.cursor == cursor) {
+            return null;
+        }
+        Cursor oldCursor = this.cursor;
+        this.cursor = cursor;
+        if (cursor != null) {
+            this.notifyDataSetChanged();
+        }
+        return oldCursor;
     }
 
     @Override
     public int getItemCount() {
-        return transactions.size();
+        return (cursor == null) ? 0 : cursor.getCount();
     }
-
 
     class TransactionView extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
 
@@ -64,7 +76,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public void onClick(View v) {
             Toast.makeText(context, "TO BE IMPLEMENTED " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
 //            Intent intent=new Intent(context,TransactionActivity.class);
-//            intent.putExtra("dream",transactions.get(getAdapterPosition()));
+//            intent.putExtra("transaction",transactions.get(getAdapterPosition()));
 //            context.startActivity(intent);
 
         }

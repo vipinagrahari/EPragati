@@ -1,6 +1,7 @@
 package io.github.vipinagrahari.epragati.ui.adapter;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +10,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
-
-import io.github.vipinagrahari.epragati.data.model.Dream;
+import io.github.vipinagrahari.epragati.data.db.DbContract;
 
 
 /**
@@ -19,11 +18,11 @@ import io.github.vipinagrahari.epragati.data.model.Dream;
  */
 public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.DreamView> {
 
-    List<Dream> dreams;
+    Cursor cursor;
     Context context;
 
-    public DreamsAdapter(List<Dream> dreams) {
-        this.dreams = dreams;
+    public DreamsAdapter(Cursor cursor) {
+        this.cursor = cursor;
     }
 
 
@@ -35,13 +34,27 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.DreamView>
 
     @Override
     public void onBindViewHolder(DreamView holder, int position) {
-        holder.dreamTitle.setText(dreams.get(position).getTitle());
-
+        cursor.moveToPosition(position);
+        String title = cursor.getString(cursor.getColumnIndex(DbContract.DreamEntry.COLUMN_TITLE));
+        holder.dreamTitle.setText(title);
     }
+
+    public Cursor swapCursor(Cursor cursor) {
+        if (this.cursor == cursor) {
+            return null;
+        }
+        Cursor oldCursor = this.cursor;
+        this.cursor = cursor;
+        if (cursor != null) {
+            this.notifyDataSetChanged();
+        }
+        return oldCursor;
+    }
+
 
     @Override
     public int getItemCount() {
-        return dreams.size();
+        return (cursor == null) ? 0 : cursor.getCount();
     }
 
 
