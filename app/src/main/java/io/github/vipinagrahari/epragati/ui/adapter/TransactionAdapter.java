@@ -5,6 +5,7 @@ package io.github.vipinagrahari.epragati.ui.adapter;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,9 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.db.DbContract;
+import io.github.vipinagrahari.epragati.ui.activity.AddEditTransaction;
 
 
 /**
@@ -41,8 +43,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         cursor.moveToPosition(position);
         String description = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_DESCRIPTION));
         String amount = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT));
-        holder.transactionDetail.setText(description + "\n" + amount + "Rs");
-
+        int transactionId = cursor.getInt(cursor.getColumnIndex(DbContract.TransactionEntry._ID));
+        holder.transactionDetail.setText(description + "\n" + amount + " Rs");
+        holder.transactionId = transactionId;
     }
 
     public Cursor swapCursor(Cursor cursor) {
@@ -65,6 +68,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     class TransactionView extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
 
         TextView transactionDetail;
+        int transactionId;
 
         public TransactionView(View itemView) {
             super(itemView);
@@ -74,10 +78,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "TO BE IMPLEMENTED " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-//            Intent intent=new Intent(context,TransactionActivity.class);
-//            intent.putExtra("transaction",transactions.get(getAdapterPosition()));
-//            context.startActivity(intent);
+            Intent intent = new Intent(context, AddEditTransaction.class);
+            intent.putExtra("tag", context.getString(R.string.activity_edit_transaction));
+            intent.putExtra("transaction_id", transactionId);
+            context.startActivity(intent);
 
         }
     }

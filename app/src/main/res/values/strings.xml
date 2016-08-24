@@ -21,6 +21,10 @@
     <string name="activiy_financial">Financial</string>
     <string name="activity_resources">Resources</string>
     <string name="activity_help">Help</string>
+    <string name="activity_add_dream">Add Dream</string>
+    <string name="activity_edit_dream">Edit Dream</string>
+    <string name="activity_add_transaction">Add Transaction</string>
+    <string name="activity_edit_transaction">Edit Transaction</string>
 
     <!--Fragment Names-->
     <string name="fragment_group_info">Details</string>
@@ -47,11 +51,20 @@
     <string name="input_principal">Principal Amount</string>
     <string name="input_interest_rate">Interest Rate (Monthly)</string>
     <string name="input_loan_duration">Loan Duration (In Months)</string>
+    <string name="input_dream_title">What is you dream?</string>
+    <string name="input_dream_description">Describe your dream</string>
+    <string name="input_dream_deadline">Date to accomplish dream</string>
+
+    <string name="input_transaction_description">Description</string>
+    <string name="input_transaction_amount">Amount</string>
+    <string name="input_transaction_date">Transaction date</string>
 
     <!--Button Labels-->
 
     <string name="btn_calculate_emi">Calculate</string>
     <string name="btn_reset">Reset</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_cancel">Cancel</string>
 
     <!--Text Labels-->
 
@@ -109,16 +122,11 @@
     <string name="desc_video_thumbnail">Video Image</string>
 
 
-    <!--Dummy Strings-->
+    <string-array name="transaction_type">
+        <item name="transaction_expense">Expense</item>
+        <item name="transaction_income">Income</item>
+    </string-array>
 
-    <string name="dummy_points">
-        \n &#8226; Point 1 \n
-        &#8226; Point 2 \n
-        &#8226; Point 3 \n
-        &#8226; Point 4 \n
-        &#8226; Point 5 \n
-
-    </string>
 
 
 </resources>

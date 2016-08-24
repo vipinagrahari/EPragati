@@ -1,6 +1,7 @@
 package io.github.vipinagrahari.epragati.ui.fragment;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.db.DbContract;
 import io.github.vipinagrahari.epragati.data.model.Transaction;
 import io.github.vipinagrahari.epragati.ui.DividerItemDecoration;
+import io.github.vipinagrahari.epragati.ui.activity.AddEditTransaction;
 import io.github.vipinagrahari.epragati.ui.adapter.TransactionAdapter;
 
 
@@ -77,7 +78,11 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
         fabAddTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getContext(), AddEditTransaction.class);
+                intent.putExtra("tag", getString(R.string.activity_add_transaction));
+
+                startActivity(intent);
             }
         });
 
@@ -104,7 +109,7 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
                         uri,
                         TRANSACTION_COLUMNS,
                         selection,
-                        new String[]{"expense"},
+                        new String[]{"Expense"},
                         null
                 );
             } else if (id == INCOME_LOADER) {
@@ -113,7 +118,7 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
                         uri,
                         TRANSACTION_COLUMNS,
                         selection,
-                        new String[]{"income"},
+                        new String[]{"Income"},
                         null
                 );
             }

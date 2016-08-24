@@ -1,6 +1,7 @@
 package io.github.vipinagrahari.epragati.ui.fragment;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +16,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,7 @@ import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.db.DbContract;
 import io.github.vipinagrahari.epragati.data.model.Dream;
 import io.github.vipinagrahari.epragati.ui.DividerItemDecoration;
+import io.github.vipinagrahari.epragati.ui.activity.AddEditDreamActivity;
 import io.github.vipinagrahari.epragati.ui.adapter.DreamsAdapter;
 
 /**
@@ -51,7 +52,7 @@ public class MyDreamsFragment extends Fragment implements LoaderManager.LoaderCa
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my_dreams, container, false);
         rvDreams = (RecyclerView) view.findViewById(R.id.rv_dreams);
@@ -67,7 +68,12 @@ public class MyDreamsFragment extends Fragment implements LoaderManager.LoaderCa
         fabAddDream.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+
+
+                Intent intent = new Intent(getContext(), AddEditDreamActivity.class);
+                intent.putExtra("tag", getString(R.string.activity_add_dream));
+
+                startActivity(intent);
             }
         });
 
@@ -85,13 +91,14 @@ public class MyDreamsFragment extends Fragment implements LoaderManager.LoaderCa
         if (null != uri) {
             // Now create and return a CursorLoader that will take care of
             // creating a Cursor for the data being displayed.
+            String sortOrder = DbContract.DreamEntry.COLUMN_DREAM_DEADLINE + " ASC ";
             return new CursorLoader(
                     getActivity(),
                     uri,
                     DREAM_COLUMNS,
                     null,
                     null,
-                    null
+                    sortOrder
             );
         }
         return null;
