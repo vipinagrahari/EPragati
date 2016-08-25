@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,21 +33,29 @@ import io.github.vipinagrahari.epragati.ui.adapter.TransactionAdapter;
  * A simple {@link Fragment} subclass.
  */
 public class BudgetFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+    static final String TOTAL = "total";
     private static final String[] TRANSACTION_COLUMNS = {
             DbContract.TransactionEntry.TABLE_NAME + "." + DbContract.TransactionEntry._ID,
             DbContract.TransactionEntry.COLUMN_TRANSACTION_DATE,
             DbContract.TransactionEntry.COLUMN_TRANSACTION_TYPE,
             DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT,
-            DbContract.TransactionEntry.COLUMN_DESCRIPTION
+            DbContract.TransactionEntry.COLUMN_DESCRIPTION,
+    };
+    private static final String[] TRANSACTION_SUMMARY = {
+            DbContract.TransactionEntry.COLUMN_TRANSACTION_TYPE,
+            "sum(" + DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT + ") AS " + TOTAL
     };
     final int EXPENSE_LOADER = 1;
     final int INCOME_LOADER = 2;
+    final int INCOME_SUM = 3;
+    final int EXPENSE_SUM = 4;
     RecyclerView rvIncome, rvExpense;
     TransactionAdapter incomeAdapter, expenseAdapter;
     List<Transaction> income, expense;
     FloatingActionButton fabAddTransaction;
-    int totalIncome, totalExpense;
+    int totalIncome, totalExpense, totalTransaction;
     Uri uri = DbContract.TransactionEntry.CONTENT_URI;
+    TextView tvIncome, tvExpense, tvTotal;
 
 
     public BudgetFragment() {
@@ -60,6 +69,9 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
         View view = inflater.inflate(R.layout.fragment_budget, container, false);
         rvIncome = (RecyclerView) view.findViewById(R.id.rv_income);
         rvExpense = (RecyclerView) view.findViewById(R.id.rv_expense);
+        tvIncome = (TextView) view.findViewById(R.id.tv_income_total);
+        tvExpense = (TextView) view.findViewById(R.id.tv_expense_total);
+        tvTotal = (TextView) view.findViewById(R.id.tv_total);
         fabAddTransaction = (FloatingActionButton) view.findViewById(R.id.fab_add_transaction);
         income = new ArrayList<>();
         expense = new ArrayList<>();
@@ -93,6 +105,8 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(INCOME_LOADER, null, this);
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
+        getLoaderManager().initLoader(INCOME_SUM, null, this);
+        getLoaderManager().initLoader(EXPENSE_SUM, null, this);
     }
 
 
@@ -121,6 +135,30 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
                         new String[]{"Income"},
                         null
                 );
+
+
+            } else if (id == INCOME_SUM) {
+                return new CursorLoader(
+                        getActivity(),
+                        uri,
+                        new String[]{"sum(" + DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT + ") AS " + TOTAL},
+                        selection,
+                        new String[]{"Income"},
+                        null
+                );
+
+
+            } else if (id == EXPENSE_SUM) {
+                return new CursorLoader(
+                        getActivity(),
+                        uri,
+                        new String[]{"sum(" + DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT + ") AS " + TOTAL},
+                        selection,
+                        new String[]{"Expense"},
+                        null
+                );
+
+
             }
 
         }
@@ -136,9 +174,21 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
             case EXPENSE_LOADER:
                 expenseAdapter.swapCursor(data);
                 break;
+            case INCOME_SUM:
+                if (data.moveToFirst())
+                    totalIncome = data.getInt(data.getColumnIndex(TOTAL));
+                break;
+            case EXPENSE_SUM:
+                if (data.moveToFirst())
+                    totalExpense = data.getInt(data.getColumnIndex(TOTAL));
+                break;
             default://Do nothing
                 break;
         }
+
+        tvIncome.setText(Integer.toString(totalIncome));
+        tvExpense.setText(Integer.toString(totalExpense));
+        tvTotal.setText(Integer.toString(totalIncome - totalExpense));
 
     }
 

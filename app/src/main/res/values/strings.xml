@@ -18,7 +18,7 @@
     <string name="activity_profile">Profile</string>
     <string name="activity_group">My Group</string>
     <string name="activity_meeting">Meeting</string>
-    <string name="activiy_financial">Financial</string>
+    <string name="activity_financial">Financial</string>
     <string name="activity_resources">Resources</string>
     <string name="activity_help">Help</string>
     <string name="activity_add_dream">Add Dream</string>
@@ -101,6 +101,7 @@
     <string name="label_aadhar">AADHAR </string>
     <string name="label_ration">Ration Card </string>
     <string name="label_family_income">Annual Income</string>
+    <string name="label_total">Total</string>
 
     <!--Card Headers-->
     <string name="header_financial_status">Financial Status</string>
@@ -109,6 +110,7 @@
     <string name="header_member_family">Family</string>
     <string name="header_expense">Expense</string>
     <string name="header_income">Income</string>
+    <string name="header_summary">Summary</string>
 
 
     <!--Toast Messages-->

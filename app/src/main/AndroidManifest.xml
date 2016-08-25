@@ -32,7 +32,7 @@
             android:parentActivityName=".ui.activity.GroupActivity" />
         <activity
             android:name=".ui.activity.FinancialActivity"
-            android:label="@string/activiy_financial"
+            android:label="@string/activity_financial"
             android:launchMode="singleTop"
             android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />

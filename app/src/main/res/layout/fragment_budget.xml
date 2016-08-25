@@ -24,6 +24,98 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/card_header"
+                    android:background="@color/colorPrimary"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/card_header_padding"
+                    android:paddingStart="@dimen/card_header_padding"
+                    android:text="@string/header_summary"
+                    android:textAllCaps="true"
+                    android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
+                    android:textColor="#FFF" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/card_body_padding">
+
+                    <TextView
+                        android:id="@+id/label_income"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/header_income" />
+
+                    <TextView
+                        android:id="@+id/tv_income_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:textStyle="bold"
+                        tools:text="12000 " />
+
+                    <TextView
+                        android:id="@+id/label_expense"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/label_income"
+                        android:layout_marginTop="@dimen/text_top_margin"
+                        android:text="@string/header_expense" />
+
+                    <TextView
+                        android:id="@+id/tv_expense_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/tv_income_total"
+                        android:layout_marginTop="@dimen/text_top_margin"
+                        android:textStyle="bold"
+                        tools:text="1000" />
+
+                    <TextView
+                        android:id="@+id/label_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/label_expense"
+                        android:layout_marginTop="@dimen/text_top_margin"
+                        android:text="@string/label_total"
+                        android:textColor="@color/colorAccent" />
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_below="@id/tv_expense_total"
+                        android:layout_marginTop="@dimen/text_top_margin"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        tools:text="1000" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="@dimen/cardview_default_elevation"
+            card_view:cardCornerRadius="@dimen/cardview_default_radius">
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="250sp"
 
                 android:orientation="vertical">
@@ -60,7 +152,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200sp"
+                android:layout_height="250sp"
 
                 android:orientation="vertical">
 
