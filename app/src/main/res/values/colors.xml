@@ -3,4 +3,12 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--Define colors for Smooch(Chat Interface)-->
+
+    <color name="Smooch_accent">@color/colorPrimary</color>
+    <color name="Smooch_accentDark">@color/colorPrimaryDark</color>
+    <color name="Smooch_accentLight">@color/colorAccent</color>
+
+
 </resources>

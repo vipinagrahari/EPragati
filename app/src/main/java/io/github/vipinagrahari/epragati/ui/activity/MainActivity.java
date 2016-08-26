@@ -21,6 +21,7 @@ import io.github.vipinagrahari.epragati.api.ServiceGenerator;
 import io.github.vipinagrahari.epragati.ui.adapter.FragmentAdapter;
 import io.github.vipinagrahari.epragati.ui.fragment.MyDetailsFragment;
 import io.github.vipinagrahari.epragati.ui.fragment.MyDreamsFragment;
+import io.smooch.ui.ConversationActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,21 +56,6 @@ public class MainActivity extends AppCompatActivity
 
         viewPager.setAdapter(fragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
-//
-//        Dream dream=new Dream();
-//        dream.setTitle("Join Google");
-//        dream.setDescription("Work on amazing things");
-//        dream.setDeadline(123456789);
-//        dream.setComplete(false);
-//
-//        getContentResolver().insert(DbContract.DreamEntry.CONTENT_URI,dream.getContentValues());
-//
-//        Transaction transaction=new Transaction();
-//        transaction.setDescription("Buy Laptop");
-//        transaction.setAmount(30000);
-//        transaction.setDate(123456789);
-//        transaction.setType("expense");
-//        getContentResolver().insert(DbContract.TransactionEntry.CONTENT_URI,transaction.getContentValues());
     }
 
     @Override
@@ -125,7 +111,7 @@ public class MainActivity extends AppCompatActivity
                 activityToOpen = ResourcesActivity.class;
                 break;
             case R.id.nav_help:
-                activityToOpen = HelpActivity.class;
+                ConversationActivity.show(this);
                 break;
             default:
                 //Stay Here
