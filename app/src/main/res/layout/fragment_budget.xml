@@ -31,8 +31,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/card_header"
                     android:background="@color/colorPrimary"
-                    android:gravity="center_vertical"
+                    android:gravity="center"
                     android:paddingLeft="@dimen/card_header_padding"
+                    android:paddingRight="@dimen/card_header_padding"
                     android:paddingStart="@dimen/card_header_padding"
                     android:text="@string/header_summary"
                     android:textAllCaps="true"
@@ -135,7 +136,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_income"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:textAlignment="textStart" />
 
 
             </LinearLayout>

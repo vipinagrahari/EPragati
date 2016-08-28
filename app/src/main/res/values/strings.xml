@@ -9,8 +9,7 @@
     <string name="navigation_profile">Profile</string>
     <string name="navigation_group">Group</string>
     <string name="navigation_financial">Financial</string>
-    <string name="navigation_resources">Resources</string>
-    <string name="navigation_settings">Settings</string>
+    <string name="navigation_resources">Resources</string>ng>
     <string name="navigation_help">Help</string>
 
     <!--Activity Titles-->
@@ -43,7 +42,7 @@
 
 
     <!--Menu Items   -->
-    <string name="action_settings">Settings</string>
+    <string name="action_invite">Invite</string>
 
 
     <!--Input Text Field Hints-->
@@ -117,6 +116,8 @@
 
     <string name="message_invalid_input">Please fill all fields with valid values</string>
     <string name="message_failed_to_load_data">Failed to load data from server</string>
+    <string name="message_play_service_error">Failed to Initialize Google Play Services</string>
+    <string name="message_send_failed">Sending invites failed</string>
 
 
     <!--Content Descriptions-->
@@ -124,12 +125,22 @@
     <string name="desc_video_thumbnail">Video Image</string>
 
 
+
     <string-array name="transaction_type">
         <item name="transaction_expense">Expense</item>
         <item name="transaction_income">Income</item>
     </string-array>
+
+
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+
+
+    <string name="invitation_title">Invite others to use app</string>
+    <string name="invitation_message">This app really simplifies my life. You can use it also.</string>
+    <string name="invitation_deep_link">http://play.google.com</string>
+    <string name="invite_email_body">Hi, I am using this app which is really useful and I thought of sharing it with you. You will love it.</string>
+    <string name="invite_email_subject">Invitation to use ePragati</string>
 
 
 </resources>

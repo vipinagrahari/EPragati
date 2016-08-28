@@ -53,18 +53,19 @@
         android:gravity="end">
 
         <Button
-            android:id="@+id/btn_calculate_emi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_calculate_emi"
-
-            />
-
-        <Button
             android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btn_reset"
+
+            />
+
+
+        <Button
+            android:id="@+id/btn_calculate_emi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_calculate_emi"
 
             />
 
