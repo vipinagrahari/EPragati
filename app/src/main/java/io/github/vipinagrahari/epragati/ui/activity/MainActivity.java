@@ -11,26 +11,22 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.gson.JsonObject;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import io.github.vipinagrahari.epragati.R;
-import io.github.vipinagrahari.epragati.api.ServiceGenerator;
 import io.github.vipinagrahari.epragati.ui.adapter.FragmentAdapter;
 import io.github.vipinagrahari.epragati.ui.fragment.MyDetailsFragment;
 import io.github.vipinagrahari.epragati.ui.fragment.MyDreamsFragment;
 import io.smooch.ui.ConversationActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     final int TAB_COUNT = 2;
     ViewPager viewPager;
     TabLayout tabLayout;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +52,9 @@ public class MainActivity extends AppCompatActivity
 
         viewPager.setAdapter(fragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+
     }
 
     @Override
@@ -68,27 +67,6 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -111,41 +89,33 @@ public class MainActivity extends AppCompatActivity
                 activityToOpen = ResourcesActivity.class;
                 break;
             case R.id.nav_help:
-                ConversationActivity.show(this);
+                activityToOpen = ConversationActivity.class;
                 break;
             default:
                 //Stay Here
                 break;
         }
-        if (activityToOpen != null) {
-
+        if (null != activityToOpen) {
+            logNavigationSelection(activityToOpen.getName());
             Intent intent = new Intent(MainActivity.this, activityToOpen);
             startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
-    public void loadData() {
 
-        Call<JsonObject> getMemberDetails = ServiceGenerator.getInstance().
-                getMemberDetails();
+    public void logNavigationSelection(String className) {
 
-        getMemberDetails.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                System.out.println(response.body().toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-
-
-            }
-        });
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, className);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "navigation");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
+
+
 }

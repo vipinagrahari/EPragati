@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import io.github.vipinagrahari.epragati.R;
 
 /**
@@ -71,9 +73,8 @@ public class LoanFragment extends Fragment {
             tvInstallment.setText(String.valueOf(emi));
             tvTotal.setText(String.valueOf(total));
             tvInterest.setText(String.valueOf(interest));
+            logEmiCalculation();
         } catch (NumberFormatException e) {
-
-
             Toast.makeText(getActivity(), getString(R.string.message_invalid_input), Toast.LENGTH_SHORT).show();
         }
 
@@ -88,6 +89,15 @@ public class LoanFragment extends Fragment {
         etInterest.getText().clear();
         etPrincipal.getText().clear();
         etPrincipal.requestFocus();
+
+    }
+
+    public void logEmiCalculation() {
+
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "EMI Calculation");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "feature_use");
+        FirebaseAnalytics.getInstance(getContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
 
     }
 

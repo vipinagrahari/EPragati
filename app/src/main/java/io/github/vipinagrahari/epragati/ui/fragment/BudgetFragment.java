@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,9 +92,11 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
         fabAddTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                logAddTransaction();
 
                 Intent intent = new Intent(getContext(), AddEditTransaction.class);
                 intent.putExtra("tag", getString(R.string.activity_add_transaction));
+
 
                 startActivity(intent);
             }
@@ -196,6 +200,15 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
     public void onLoaderReset(Loader<Cursor> loader) {
         expenseAdapter.swapCursor(null);
         incomeAdapter.swapCursor(null);
+    }
+
+
+    public void logAddTransaction() {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Add Financial Transaction");
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "feature_use");
+        FirebaseAnalytics.getInstance(getContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+
     }
 
 }
