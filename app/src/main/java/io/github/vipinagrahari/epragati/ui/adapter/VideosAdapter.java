@@ -16,7 +16,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.github.vipinagrahari.epragati.R;
@@ -36,17 +35,7 @@ public class VideosAdapter extends RecyclerView.Adapter<VideosAdapter.VideoView>
         this.videos = videos;
     }
 
-    public VideosAdapter() {
-        useDummy();
-    }
 
-    public void useDummy() {
-        videos = new ArrayList<>();
-        videos.add(new Video("Learn ABC", "YkL2d3MioOs"));
-        videos.add(new Video("Conversion of Money", "kRklXAbCFq0"));
-        videos.add(new Video("Learn ABC", "YkL2d3MioOs"));
-        videos.add(new Video("Conversion of Money", "kRklXAbCFq0"));
-    }
 
     @Override
     public VideoView onCreateViewHolder(ViewGroup parent, int viewType) {

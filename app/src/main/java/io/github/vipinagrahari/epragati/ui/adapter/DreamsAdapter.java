@@ -35,7 +35,7 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.DreamView>
     @Override
     public DreamView onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new DreamView(LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2, parent, false));
+        return new DreamView(LayoutInflater.from(context).inflate(R.layout.simple_list_item_2, parent, false));
     }
 
     @Override
@@ -82,8 +82,8 @@ public class DreamsAdapter extends RecyclerView.Adapter<DreamsAdapter.DreamView>
 
         public DreamView(View itemView) {
             super(itemView);
-            dreamTitle = (TextView) itemView.findViewById(android.R.id.text1);
-            dreamDeadline = (TextView) itemView.findViewById(android.R.id.text2);
+            dreamTitle = (TextView) itemView.findViewById(R.id.text1);
+            dreamDeadline = (TextView) itemView.findViewById(R.id.text2);
             itemView.setOnClickListener(this);
         }
 

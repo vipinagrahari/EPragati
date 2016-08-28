@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.model.Meeting;
 import io.github.vipinagrahari.epragati.ui.activity.MeetingActivity;
 
@@ -30,7 +31,7 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
     @Override
     public MeetingView onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new MeetingView(LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_2, parent, false));
+        return new MeetingView(LayoutInflater.from(context).inflate(R.layout.simple_list_item_2, parent, false));
     }
 
     @Override
@@ -53,8 +54,8 @@ public class MeetingsAdapter extends RecyclerView.Adapter<MeetingsAdapter.Meetin
 
         public MeetingView(View itemView) {
             super(itemView);
-            meetingDate = (TextView) itemView.findViewById(android.R.id.text1);
-            meetingLocation = (TextView) itemView.findViewById(android.R.id.text2);
+            meetingDate = (TextView) itemView.findViewById(R.id.text1);
+            meetingLocation = (TextView) itemView.findViewById(R.id.text2);
             itemView.setOnClickListener(this);
         }
 

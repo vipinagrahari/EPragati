@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import io.github.vipinagrahari.epragati.R;
+
 /**
  * Created by vivek on 21/8/16.
  */
@@ -23,7 +25,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MemberVi
 
     @Override
     public MemberView onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MemberView(LayoutInflater.from(parent.getContext()).inflate(android.R.layout.simple_list_item_2, parent, false));
+        return new MemberView(LayoutInflater.from(parent.getContext()).inflate(R.layout.simple_list_item_2, parent, false));
     }
 
     @Override
@@ -47,8 +49,8 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.MemberVi
 
         public MemberView(View itemView) {
             super(itemView);
-            memberName = (TextView) itemView.findViewById(android.R.id.text1);
-            memberContact = (TextView) itemView.findViewById(android.R.id.text2);
+            memberName = (TextView) itemView.findViewById(R.id.text1);
+            memberContact = (TextView) itemView.findViewById(R.id.text2);
         }
     }
 

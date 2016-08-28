@@ -35,7 +35,7 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public TransactionView onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new TransactionView(LayoutInflater.from(context).inflate(android.R.layout.simple_list_item_1, parent, false));
+        return new TransactionView(LayoutInflater.from(context).inflate(R.layout.simple_list_item_2, parent, false));
     }
 
     @Override
@@ -44,7 +44,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         String description = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_DESCRIPTION));
         String amount = cursor.getString(cursor.getColumnIndex(DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT));
         int transactionId = cursor.getInt(cursor.getColumnIndex(DbContract.TransactionEntry._ID));
-        holder.transactionDetail.setText(description + "\n" + amount + " Rs");
+        holder.transactionDescription.setText(description);
+        holder.transactionAmount.setText(amount);
         holder.transactionId = transactionId;
     }
 
@@ -67,12 +68,14 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
 
     class TransactionView extends RecyclerView.ViewHolder implements AdapterView.OnClickListener {
 
-        TextView transactionDetail;
+        TextView transactionDescription;
+        TextView transactionAmount;
         int transactionId;
 
         public TransactionView(View itemView) {
             super(itemView);
-            transactionDetail = (TextView) itemView.findViewById(android.R.id.text1);
+            transactionDescription = (TextView) itemView.findViewById(R.id.text1);
+            transactionAmount = (TextView) itemView.findViewById(R.id.text2);
             itemView.setOnClickListener(this);
         }
 

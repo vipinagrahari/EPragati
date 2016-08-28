@@ -25,9 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/card_header"
                 android:background="@color/colorPrimary"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/card_header_padding"
-                android:paddingStart="@dimen/card_header_padding"
+                android:gravity="center"
                 android:textAllCaps="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
                 android:textColor="#FFF"
@@ -113,9 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/card_header"
                 android:background="@color/colorPrimary"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/card_header_padding"
-                android:paddingStart="@dimen/card_header_padding"
+                android:gravity="center"
                 android:text="@string/header_meeting_points"
                 android:textAllCaps="true"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium.Inverse"
@@ -123,12 +119,14 @@
 
             <TextView
                 android:id="@+id/tv_meeting_points"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="start"
                 android:paddingLeft="@dimen/card_header_padding"
+                android:paddingRight="@dimen/card_header_padding"
                 android:paddingStart="@dimen/card_header_padding"
-                android:textStyle="bold"
-                tools:text="@string/dummy_points" />
+                android:textAlignment="textStart"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

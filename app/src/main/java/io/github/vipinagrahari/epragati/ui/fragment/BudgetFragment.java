@@ -3,6 +3,7 @@ package io.github.vipinagrahari.epragati.ui.fragment;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.github.vipinagrahari.epragati.AsyncLoader;
 import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.db.DbContract;
 import io.github.vipinagrahari.epragati.data.model.Transaction;
@@ -49,13 +51,13 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
     };
     final int EXPENSE_LOADER = 1;
     final int INCOME_LOADER = 2;
-    final int INCOME_SUM = 3;
-    final int EXPENSE_SUM = 4;
+    final int TRANSACTION_SUM = 3;
+
     RecyclerView rvIncome, rvExpense;
     TransactionAdapter incomeAdapter, expenseAdapter;
     List<Transaction> income, expense;
     FloatingActionButton fabAddTransaction;
-    int totalIncome, totalExpense, totalTransaction;
+    int totalIncome, totalExpense;
     Uri uri = DbContract.TransactionEntry.CONTENT_URI;
     TextView tvIncome, tvExpense, tvTotal;
 
@@ -109,8 +111,7 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
         super.onActivityCreated(savedInstanceState);
         getLoaderManager().initLoader(INCOME_LOADER, null, this);
         getLoaderManager().initLoader(EXPENSE_LOADER, null, this);
-        getLoaderManager().initLoader(INCOME_SUM, null, this);
-        getLoaderManager().initLoader(EXPENSE_SUM, null, this);
+        getLoaderManager().initLoader(TRANSACTION_SUM, null, this);
     }
 
 
@@ -141,25 +142,17 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
                 );
 
 
-            } else if (id == INCOME_SUM) {
-                return new CursorLoader(
+            } else if (id == TRANSACTION_SUM) {
+
+                return new AsyncLoader(
                         getActivity(),
                         uri,
-                        new String[]{"sum(" + DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT + ") AS " + TOTAL},
-                        selection,
-                        new String[]{"Income"},
-                        null
-                );
-
-
-            } else if (id == EXPENSE_SUM) {
-                return new CursorLoader(
-                        getActivity(),
-                        uri,
-                        new String[]{"sum(" + DbContract.TransactionEntry.COLUMN_TRANSACTION_AMOUNT + ") AS " + TOTAL},
-                        selection,
-                        new String[]{"Expense"},
-                        null
+                        TRANSACTION_SUMMARY,
+                        null,
+                        null,
+                        DbContract.TransactionEntry.COLUMN_TRANSACTION_TYPE, //Group By
+                        null,
+                        DbContract.TransactionEntry.COLUMN_TRANSACTION_TYPE // Order By
                 );
 
 
@@ -178,13 +171,12 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
             case EXPENSE_LOADER:
                 expenseAdapter.swapCursor(data);
                 break;
-            case INCOME_SUM:
-                if (data.moveToFirst())
-                    totalIncome = data.getInt(data.getColumnIndex(TOTAL));
-                break;
-            case EXPENSE_SUM:
+            case TRANSACTION_SUM:
+                DatabaseUtils.dumpCursor(data);
                 if (data.moveToFirst())
                     totalExpense = data.getInt(data.getColumnIndex(TOTAL));
+                if (data.moveToNext())
+                    totalIncome = data.getInt(data.getColumnIndex(TOTAL));
                 break;
             default://Do nothing
                 break;
