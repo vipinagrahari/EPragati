@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:padding="@dimen/widget_margin">
+
+
+    <TextView
+        android:id="@+id/label_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/header_income" />
+
+    <TextView
+        android:id="@+id/tv_income_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        tools:text="12000 " />
+
+    <TextView
+        android:id="@+id/label_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_income"
+        android:layout_marginTop="@dimen/text_top_margin"
+        android:text="@string/header_expense" />
+
+    <TextView
+        android:id="@+id/tv_expense_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_income_total"
+        android:layout_marginTop="@dimen/text_top_margin"
+        android:textStyle="bold"
+        tools:text="1000" />
+
+    <TextView
+        android:id="@+id/label_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label_expense"
+        android:layout_marginTop="@dimen/text_top_margin"
+        android:text="@string/label_total"
+        android:textColor="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/tv_expense_total"
+        android:layout_marginTop="@dimen/text_top_margin"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        tools:text="1000" />
+
+
+</RelativeLayout>

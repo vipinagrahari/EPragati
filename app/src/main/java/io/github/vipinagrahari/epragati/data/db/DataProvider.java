@@ -113,6 +113,34 @@ public class DataProvider extends ContentProvider {
         return retCursor;
     }
 
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,String groupBy,String having,
+                        String sortOrder) {
+        Cursor retCursor;
+
+        switch (sUriMatcher.match(uri)) {
+
+            case TRANSACTION:
+
+                retCursor = dbHelper.getReadableDatabase().query(
+                        TransactionEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        groupBy,
+                        null,
+                        sortOrder
+                );
+                break;
+                default:
+                    throw new UnsupportedOperationException("NOT IMPLEMENTED: " + uri);
+
+
+        }
+        retCursor.setNotificationUri(getContext().getContentResolver(), uri);
+        return retCursor;
+
+    }
+
     @Nullable
     @Override
     public String getType(Uri uri) {

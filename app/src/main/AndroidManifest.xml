@@ -56,13 +56,20 @@
             android:name=".ui.activity.AddEditDreamActivity"
             android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme" />
-
-
         <activity
             android:name=".ui.activity.AddEditTransaction"
             android:parentActivityName=".ui.activity.FinancialActivity"
             android:theme="@style/AppTheme" />
 
+        <receiver android:name=".EpragatiWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/epragati_widget_info" />
+        </receiver>
     </application>
 
 </manifest>
