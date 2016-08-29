@@ -1,7 +1,10 @@
 package io.github.vipinagrahari.epragati.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,16 +16,15 @@ import android.widget.Toast;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import io.github.vipinagrahari.epragati.HttpAsyncLoader;
 import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.api.ServiceGenerator;
 import io.github.vipinagrahari.epragati.ui.DividerItemDecoration;
 import io.github.vipinagrahari.epragati.ui.adapter.MembersAdapter;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 
-public class GroupInfoFragment extends Fragment {
+public class GroupInfoFragment extends Fragment implements LoaderManager.LoaderCallbacks<JsonObject> {
 
     RecyclerView rvMembers;
     MembersAdapter membersAdapter;
@@ -49,43 +51,39 @@ public class GroupInfoFragment extends Fragment {
         rvMembers = (RecyclerView) view.findViewById(R.id.rv_members);
         rvMembers.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvMembers.addItemDecoration(new DividerItemDecoration(getActivity(), null));
-        loadData();
-
-
         return view;
     }
 
-    private void loadData() {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
 
-        Call<JsonObject> getGroupDetails = ServiceGenerator.getInstance().
-                getGroupDetails();
+    @Override
+    public Loader<JsonObject> onCreateLoader(int id, Bundle args) {
+        Call<JsonObject> getGroupDetails = ServiceGenerator.getInstance().getGroupDetails();
+        return new HttpAsyncLoader(getContext(), getGroupDetails);
+    }
 
-        getGroupDetails.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject data = response.body();
-                JsonArray members = data.get("members").getAsJsonArray();
+    @Override
+    public void onLoadFinished(Loader<JsonObject> loader, JsonObject data) {
+        if (null != data) {
+            JsonArray members = data.get("members").getAsJsonArray();
+            tvGroupName.setText(data.get("group_name").getAsString());
+            tvGroupFormationDate.setText(data.get("formed_on").getAsString());
+            tvGroupAim.setText(data.get("goal").getAsString());
+            tvTotalMembers.setText(data.get("total_members").getAsString());
 
-                tvGroupName.setText(data.get("group_name").getAsString());
-                tvGroupFormationDate.setText(data.get("formed_on").getAsString());
-                tvGroupAim.setText(data.get("goal").getAsString());
-                tvTotalMembers.setText(data.get("total_members").getAsString());
-
-                membersAdapter = new MembersAdapter(members);
-                rvMembers.setAdapter(membersAdapter);
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-
-                Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
-
-
-            }
-        });
+            membersAdapter = new MembersAdapter(members);
+            rvMembers.setAdapter(membersAdapter);
+        } else
+            Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
 
     }
 
+    @Override
+    public void onLoaderReset(Loader<JsonObject> loader) {
+        //Do nothing
 
+    }
 }

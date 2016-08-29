@@ -2,7 +2,10 @@ package io.github.vipinagrahari.epragati.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +14,15 @@ import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
+import io.github.vipinagrahari.epragati.HttpAsyncLoader;
 import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.api.ServiceGenerator;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyDetailsFragment extends Fragment {
+public class MyDetailsFragment extends Fragment implements LoaderManager.LoaderCallbacks<JsonObject> {
 
     TextView tvMemberName, tvMemberAge, tvMemberAddress, tvMemberVoter, tvMemberAadhar,
             tvMemberRation, tvMemberHusband, tvMemberChildren, tvFamilyIncome, tvMemberEducation;
@@ -48,43 +50,50 @@ public class MyDetailsFragment extends Fragment {
         tvFamilyIncome = (TextView) view.findViewById(R.id.tv_family_income);
         tvMemberEducation = (TextView) view.findViewById(R.id.tv_member_education);
 
-
-        loadData();
         return view;
     }
 
-    private void loadData() {
+
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+
+    @Override
+    public Loader<JsonObject> onCreateLoader(int id, Bundle args) {
 
         Call<JsonObject> getMemberDetails = ServiceGenerator.getInstance().
                 getMemberDetails();
+        return new HttpAsyncLoader(getContext(), getMemberDetails);
+    }
 
-        getMemberDetails.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject data = response.body();
-                JsonObject personal = data.get("personal").getAsJsonObject();
-                JsonObject children = personal.get("children").getAsJsonObject();
+    @Override
+    public void onLoadFinished(Loader<JsonObject> loader, JsonObject data) {
+        if (null != data) {
+            JsonObject personal = data.get("personal").getAsJsonObject();
+            JsonObject children = personal.get("children").getAsJsonObject();
 
-                tvMemberName.setText(data.get("name").getAsString());
-                tvMemberAge.setText(personal.get("age").getAsString());
-                tvMemberAddress.setText(personal.get("address").getAsString());
-                tvMemberEducation.setText(personal.get("education").getAsString());
-                tvMemberAadhar.setText(data.get("aadhar_id").getAsString());
-                tvMemberVoter.setText(data.get("voter_id").getAsString());
-                tvMemberRation.setText(data.get("ration_card").getAsString());
-                tvMemberHusband.setText(personal.get("husband_name").getAsString());
-                tvMemberChildren.setText("Boys - " + children.get("boys").getAsString() + "\n"
-                        + "Girls - " + children.get("girls").getAsString());
-                tvFamilyIncome.setText("10000");
+            tvMemberName.setText(data.get("name").getAsString());
+            tvMemberAge.setText(personal.get("age").getAsString());
+            tvMemberAddress.setText(personal.get("address").getAsString());
+            tvMemberEducation.setText(personal.get("education").getAsString());
+            tvMemberAadhar.setText(data.get("aadhar_id").getAsString());
+            tvMemberVoter.setText(data.get("voter_id").getAsString());
+            tvMemberRation.setText(data.get("ration_card").getAsString());
+            tvMemberHusband.setText(personal.get("husband_name").getAsString());
+            tvMemberChildren.setText("Boys - " + children.get("boys").getAsString() + "\n"
+                    + "Girls - " + children.get("girls").getAsString());
+            tvFamilyIncome.setText("10000"); // This parameter is not present in current server response hence hardcoded value
+        } else
+            Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
+
+    }
 
 
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
-            }
-        });
+    @Override
+    public void onLoaderReset(Loader<JsonObject> loader) {
+        //Do nothing
 
     }
 

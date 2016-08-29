@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EPragati</string>
+    <string name="app_name" translatable="false">EPragati</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -136,8 +136,9 @@
     <string name="add_widget">Add widget</string>
 
 
-    <string name="invitation_title">Invite others to use app</string>
-    <string name="invitation_message">This app really simplifies my life. You can use it also.</string>
+    <string name="invitation_title">Invite others to EPragati</string>
+    <string name="invitation_message">This app really simplifies my life.
+        You can also download it. http://play.google.com</string>
     <string name="invitation_deep_link">http://play.google.com</string>
     <string name="invite_email_body">Hi, I am using this app which is really useful and I thought of sharing it with you. You will love it.</string>
     <string name="invite_email_subject">Invitation to use ePragati</string>

@@ -14,7 +14,7 @@ import io.github.vipinagrahari.epragati.data.db.DbHelper;
  * Created by vivek on 28/8/16.
  */
 
-public class AsyncLoader extends AsyncTaskLoader<Cursor> {
+public class DbAsyncLoader extends AsyncTaskLoader<Cursor> {
     final ForceLoadContentObserver mObserver;
 
     Uri uri;
@@ -28,13 +28,13 @@ public class AsyncLoader extends AsyncTaskLoader<Cursor> {
 
     CancellationSignal mCancellationSignal;
 
-    public AsyncLoader(Context context) {
+    public DbAsyncLoader(Context context) {
         super(context);
         mObserver = new ForceLoadContentObserver();
     }
 
-    public AsyncLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs,
-                       String groupBy, String having, String sortOrder) {
+    public DbAsyncLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs,
+                         String groupBy, String having, String sortOrder) {
         super(context);
         mObserver = new ForceLoadContentObserver();
         this.uri = uri;

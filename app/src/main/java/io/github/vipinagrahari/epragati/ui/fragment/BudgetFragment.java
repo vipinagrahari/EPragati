@@ -24,7 +24,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.vipinagrahari.epragati.AsyncLoader;
+import io.github.vipinagrahari.epragati.DbAsyncLoader;
 import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.data.db.DbContract;
 import io.github.vipinagrahari.epragati.data.model.Transaction;
@@ -144,7 +144,7 @@ public class BudgetFragment extends Fragment implements LoaderManager.LoaderCall
 
             } else if (id == TRANSACTION_SUM) {
 
-                return new AsyncLoader(
+                return new DbAsyncLoader(
                         getActivity(),
                         uri,
                         TRANSACTION_SUMMARY,

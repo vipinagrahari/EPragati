@@ -4,6 +4,8 @@ package io.github.vipinagrahari.epragati.ui.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,18 +21,17 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import io.github.vipinagrahari.epragati.HttpAsyncLoader;
 import io.github.vipinagrahari.epragati.R;
 import io.github.vipinagrahari.epragati.api.ServiceGenerator;
 import io.github.vipinagrahari.epragati.ui.DividerItemDecoration;
 import io.github.vipinagrahari.epragati.ui.adapter.VideosAdapter;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ResourcesFragment extends Fragment {
+public class ResourcesFragment extends Fragment implements LoaderManager.LoaderCallbacks<JsonObject> {
 
 
     RecyclerView rvVideos;
@@ -58,46 +59,52 @@ public class ResourcesFragment extends Fragment {
         rvVideos = (RecyclerView) view.findViewById(R.id.rv_education);
         rvVideos.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvVideos.addItemDecoration(new DividerItemDecoration(getActivity(), null));
-        loadData();
         return view;
     }
 
-    private void loadData() {
 
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+
+    @Override
+    public Loader<JsonObject> onCreateLoader(int id, Bundle args) {
         Call<JsonObject> getResources = ServiceGenerator.getInstance().
                 getResources();
 
-        getResources.enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject data = response.body();
-                JsonArray array = new JsonArray();
-                if (tag.equalsIgnoreCase("EDUCATION")) {
-                    array = data.get("education").getAsJsonArray();
-                } else if (tag.equalsIgnoreCase("SKILLS")) {
-                    array = data.get("skills").getAsJsonArray();
-                }
+        return new HttpAsyncLoader(getContext(), getResources);
+    }
 
-
-                Type listType = new TypeToken<List<VideosAdapter.Video>>() {
-                }.getType();
-                List<VideosAdapter.Video> videos = new Gson().fromJson(array, listType);
-
-
-                videosAdapter = new VideosAdapter(videos);
-                rvVideos.setAdapter(videosAdapter);
-
-
+    @Override
+    public void onLoadFinished(Loader<JsonObject> loader, JsonObject data) {
+        if (null != data) {
+            JsonArray array = new JsonArray();
+            if (tag.equalsIgnoreCase("EDUCATION")) {
+                array = data.get("education").getAsJsonArray();
+            } else if (tag.equalsIgnoreCase("SKILLS")) {
+                array = data.get("skills").getAsJsonArray();
             }
 
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
 
-                Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
-            }
-        });
+            Type listType = new TypeToken<List<VideosAdapter.Video>>() {
+            }.getType();
+            List<VideosAdapter.Video> videos = new Gson().fromJson(array, listType);
+
+
+            videosAdapter = new VideosAdapter(videos);
+            rvVideos.setAdapter(videosAdapter);
+        } else
+            Toast.makeText(getContext(), getString(R.string.message_failed_to_load_data), Toast.LENGTH_SHORT).show();
 
     }
 
+
+    @Override
+    public void onLoaderReset(Loader<JsonObject> loader) {
+        //Do nothing
+
+    }
 
 }
